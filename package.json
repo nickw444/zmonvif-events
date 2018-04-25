@@ -1,0 +1,15 @@
+{
+  "name": "zmonvif-events",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "homepage": "https://github.com/nickw444/zmonvif-events",
+  "dependencies": {
+    "argparse": "^1.0.10",
+    "node-fetch": "^2.1.2",
+    "onvif": "https://github.com/nickw444/onvif.git"
+  },
+  "bin": {
+    "zmonvif-events": "./zmonvif-events"
+  }
+}
