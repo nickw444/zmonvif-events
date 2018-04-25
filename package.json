@@ -11,5 +11,13 @@
   },
   "bin": {
     "zmonvif-events": "./zmonvif-events.js"
-  }
+  },
+  "keywords": [
+    "onvif",
+    "video",
+    "NVR",
+    "zoneminder",
+    "PTZ",
+    "RTSP"
+  ]
 }
