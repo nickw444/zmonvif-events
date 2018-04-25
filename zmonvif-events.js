@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const {Cam} = require('onvif');
 const fetch = require('node-fetch');
 const {ArgumentParser} = require('argparse');

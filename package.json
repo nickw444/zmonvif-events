@@ -10,6 +10,6 @@
     "onvif": "https://github.com/nickw444/onvif.git"
   },
   "bin": {
-    "zmonvif-events": "./zmonvif-events"
+    "zmonvif-events": "./zmonvif-events.js"
   }
 }
