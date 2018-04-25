@@ -1,4 +1,4 @@
-# zmonvif-trigger.js
+# zmonvif-trigger
 
 A JS CLI tool that attempts to bridge the gap between your ONVIF camera's motion detection and Zoneminder.
 
@@ -9,12 +9,17 @@ Fortunately some ONVIF cameras have built in motion detection features, which no
 
 This tool connects to an ONVIF camera and subscribes to these messages. When the motion state changes, it uses Zoneminder's API to arm the selected monitor
 
+## Install
+
+```bash
+npm install -g zmonvif-events
+```
 
 ## Usage
 
 ```bash
-node zmonvif-events.js --help
-usage: zmonvif-events.js [-h] -z ZM_BASE_URL -i ZM_MONITOR_ID -c HOSTNAME
+zmonvif-events --help
+usage: zmonvif-events [-h] -z ZM_BASE_URL -i ZM_MONITOR_ID -c HOSTNAME
                          [-u USERNAME] [-p PASSWORD]
 
 
@@ -38,7 +43,7 @@ Optional arguments:
 **Example**
 
 ```bash
-  node zmonvif-events.js \
+  zmonvif-events \
       --zm-base-url http://my-zoneminder-instance.com/zm/ \
       --zm-monitor-id 1 \
       --hostname 192.168.1.55 \
