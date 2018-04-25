@@ -1,4 +1,4 @@
-# zmonvif-trigger
+# zmonvif-events
 
 A JS CLI tool that attempts to bridge the gap between your ONVIF camera's motion detection and Zoneminder.
 
