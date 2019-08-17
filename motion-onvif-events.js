@@ -5,19 +5,19 @@ const fetch = require('node-fetch');
 const {ArgumentParser} = require('argparse');
 const pjson = require('./package.json');
 
-class ZoneminderService {
+class MotionService {
   constructor(basePath) {
     this.basePath = basePath
   }
 
   /**
-   * @param {number} monitorId
+   * @param {number} cameraId
    * @param {boolean} state
    */
-  setAlarm(monitorId, state) {
-    console.log(`Setting monitor ${monitorId} to state ${state}`);
+  setAlarm(cameraId, state) {
+    console.log(`Setting camera ${cameraId} to state ${state}`);
     const cmd = state ? 'on' : 'off';
-    const url = `${this.basePath}api/monitors/alarm/id:${monitorId}/command:${cmd}.json`;
+    const url = `${this.basePath}${cameraId}/config/set?emulate_motion=${cmd}`;
     return fetch(url);
   }
 }
@@ -28,16 +28,16 @@ let MotionTopic = {
 };
 
 class Monitor {
-  constructor(id, onvifCam, zoneminder) {
+  constructor(id, onvifCam, motion) {
     this.id = id;
     this.onvifCam = onvifCam;
-    this.zoneminder = zoneminder;
+    this.motion = motion;
     this.lastMotionDetectedState = null;
     this.topic = MotionTopic.MOTION_ALARM;
   }
 
   log(msg, ...rest) {
-    console.log(`[monitor ${this.id}]: ${msg}`, ...rest);
+    console.log(`[camera ${this.id}]: ${msg}`, ...rest);
   }
 
   async start() {
@@ -56,7 +56,7 @@ class Monitor {
     const isMotion = camMessage.message.message.data.simpleItem.$.Value;
     if (this.lastMotionDetectedState !== isMotion) {
       this.log(`CellMotionDetector: Motion Detected: ${isMotion}`);
-      this.zoneminder.setAlarm(this.id, isMotion);
+      this.motion.setAlarm(this.id, isMotion);
     }
     this.lastMotionDetectedState = isMotion
   }
@@ -67,40 +67,42 @@ class Monitor {
     })
   }
 
-  static async create({id, hostname, username, password}, zoneminder) {
+  static async create({id, hostname, username, password, port}, motion) {
     const cam = await this.createCamera({
       hostname,
       username,
-      password
+      password,
+      port
     });
-    return new Monitor(id, cam, zoneminder);
+    return new Monitor(id, cam, motion);
   }
 }
 
 async function start(args) {
-  const zoneminder = new ZoneminderService(args.zm_base_url);
+  const motion = new MotionService(args.motion_base_url);
   const monitor = await Monitor.create({
-    id: args.zm_monitor_id,
+    id: args.motion_camera_id,
     hostname: args.hostname,
     username: args.username,
-    password: args.password
-  }, zoneminder);
+    password: args.password,
+    port: args.port
+  }, motion);
   monitor.start();
 }
 
 function main() {
   const parser = new ArgumentParser({
     addHelp: true,
-    description: 'ONVIF motion detection events bridge to Zoneminder',
+    description: 'ONVIF motion detection events bridge to Motion',
     version: pjson.version,
   });
 
-  parser.addArgument(['-z', '--zm-base-url'], {
-    help: 'Base URL for the Zoneminder instance (with trailing slash)',
+  parser.addArgument(['-m', '--motion-base-url'], {
+    help: 'Base URL for the Motion instance (with trailing slash)',
     required: true
   });
-  parser.addArgument(['-i', '--zm-monitor-id'], {
-    help: 'The ID of the monitor in Zoneminder',
+  parser.addArgument(['-i', '--motion-camera-id'], {
+    help: 'The ID of the camera in Motion',
     required: true
   });
   parser.addArgument(['-c', '--hostname'], {
@@ -112,6 +114,9 @@ function main() {
   });
   parser.addArgument(['-p', '--password'], {
     help: 'password for the ONVIF camera'
+  });
+  parser.addArgument(['-o', '--port'], {
+    help: 'port for the ONVIF camera'
   });
   const args = parser.parseArgs();
 
