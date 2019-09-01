@@ -50,7 +50,7 @@ Optional arguments:
 
 ```bash
   motion-onvif-events \
-      --motion-base-url http://my-motion-instance.com/ \
+      --motion-base-url http://my-motion-instance.com:7999/ \
       --motion-camera-id 1 \
       --hostname 192.168.1.55 \
       --username supersecretusername \
@@ -67,3 +67,13 @@ Optional arguments:
 [9/1/2019, 5:33:42 PM] Setting camera 1 to state true
 [camera 1]: CellMotionDetector: Motion Detected: false
 ```
+
+## Docker
+
+Environment variables
+* `MOTION_BASE_URL` - Base URL for the Motion instance (with trailing slash)
+* `MOTION_CAMERA_ID` - The ID of the camera in Motion
+* `HOSTNAME` - hostname/IP of the ONVIF camera
+* `USERNAME` - username for the ONVIF camera
+* `PASSWORD` - password for the ONVIF camera
+* `PORT` - port for the ONVIF camera
