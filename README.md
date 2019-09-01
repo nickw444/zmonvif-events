@@ -1,8 +1,8 @@
-Forked from [zmonvif-events](https://github.com/nickw444/zmonvif-events).
-
 # motion-onvif-events
 
 A JS CLI tool that attempts to bridge the gap between your ONVIF camera's motion detection and [Motion](https://motion-project.github.io).
+
+Forked from [zmonvif-events](https://github.com/nickw444/zmonvif-events).
 
 ## Why?
 In a typical Motion installation the server will do video processing to determine which frames have motion. Unfortunately this task is quite CPU intensive. 
@@ -10,6 +10,8 @@ In a typical Motion installation the server will do video processing to determin
 Fortunately some ONVIF cameras have built in motion detection features, which notify subscribers when an event occurs. 
 
 This tool connects to an ONVIF camera and subscribes to these messages. When the motion state changes, it uses Motion's API to arm the selected camera.
+
+Recording triggered using special url, description in [Issue 563](https://github.com/ccrisan/motioneye/issues/563). You need to enable [webcontrol options](https://motion-project.github.io/motion_config.html#OptDetail_Webcontrol) in Motion config.
 
 ## Install
 
@@ -58,10 +60,10 @@ Optional arguments:
 ```
 [camera 1]: Started
 [camera 1]: CellMotionDetector: Motion Detected: true
-Setting camera 1 to state true
+[9/1/2019, 5:33:39 PM] Setting camera 1 to state true
 [camera 1]: CellMotionDetector: Motion Detected: false
-Setting camera 1 to state false
+[9/1/2019, 5:33:40 PM] Setting camera 1 to state false
 [camera 1]: CellMotionDetector: Motion Detected: true
-Setting camera 1 to state true
+[9/1/2019, 5:33:42 PM] Setting camera 1 to state true
 [camera 1]: CellMotionDetector: Motion Detected: false
 ```

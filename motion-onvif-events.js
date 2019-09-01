@@ -15,7 +15,8 @@ class MotionService {
    * @param {boolean} state
    */
   setAlarm(cameraId, state) {
-    console.log(`Setting camera ${cameraId} to state ${state}`);
+    const date = new Date().toLocaleString();
+    console.log(`[${date}] Setting camera ${cameraId} to state ${state}`);
     const cmd = state ? 'on' : 'off';
     const url = `${this.basePath}${cameraId}/config/set?emulate_motion=${cmd}`;
     return fetch(url);
