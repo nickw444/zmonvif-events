@@ -64,7 +64,13 @@ class Monitor {
 
   static createCamera(conf) {
     return new Promise(resolve => {
-      const cam = new Cam(conf, () => resolve(cam));
+      const cam = new Cam(conf, (err) => {
+        if (err) {
+          console.log('Error connecting to ONVIF Camera ' + err);
+          process.exit();
+        }
+        resolve(cam)
+      });
     })
   }
 
