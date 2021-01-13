@@ -11,7 +11,7 @@ Fortunately some ONVIF cameras have built in motion detection features, which no
 
 This tool connects to an ONVIF camera and subscribes to these messages. When the motion state changes, it uses Motion's API to arm the selected camera.
 
-Recording triggered using special url, description in [Issue 563](https://github.com/ccrisan/motioneye/issues/563). You need to enable [webcontrol options](https://motion-project.github.io/motion_config.html#OptDetail_Webcontrol) in Motion config.
+Recording triggered using Motion`s Web Control action url. You need to enable [webcontrol options](https://motion-project.github.io/motion_config.html#OptDetail_Webcontrol) in Motion config.
 
 ## Install
 
@@ -56,16 +56,16 @@ Optional arguments:
       --username supersecretusername \
       --password dontshareme
       --port 8899
+      --timeout 5000
 ```
 ```
-[camera 1]: Started
-[camera 1]: CellMotionDetector: Motion Detected: true
-[9/1/2019, 5:33:39 PM] Setting camera 1 to state true
-[camera 1]: CellMotionDetector: Motion Detected: false
-[9/1/2019, 5:33:40 PM] Setting camera 1 to state false
-[camera 1]: CellMotionDetector: Motion Detected: true
-[9/1/2019, 5:33:42 PM] Setting camera 1 to state true
-[camera 1]: CellMotionDetector: Motion Detected: false
+[1/13/2021, 11:06:40 AM] Camera: Start event listener
+[1/13/2021, 11:07:28 AM] Camera: Motion detected: true
+[1/13/2021, 11:07:28 AM] Motion: Trigger a new event
+[1/13/2021, 11:07:29 AM] Camera: Motion detected: false
+[1/13/2021, 11:07:30 AM] Camera: Motion detected: true
+[1/13/2021, 11:07:31 AM] Camera: Motion detected: false
+[1/13/2021, 11:07:51 AM] Motion: Trigger the end of a event
 ```
 
 ## Docker
