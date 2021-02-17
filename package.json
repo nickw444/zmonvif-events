@@ -1,13 +1,13 @@
 {
   "name": "motion-onvif-events",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "index.js",
   "license": "MIT",
   "homepage": "https://github.com/rostislavzz/motion-onvif-events",
   "dependencies": {
     "argparse": "^1.0.10",
     "node-fetch": "^2.1.2",
-    "onvif": "https://github.com/nickw444/onvif.git"
+    "onvif": "^0.6.4"
   },
   "bin": {
     "motion-onvif-events": "./motion-onvif-events.js"
@@ -19,5 +19,10 @@
     "Motion",
     "PTZ",
     "RTSP"
-  ]
+  ],
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.17.0",
+    "eslint-plugin-prettier": "^3.3.1"
+  }
 }
