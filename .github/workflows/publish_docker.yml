@@ -36,4 +36,4 @@ jobs:
           push: true
           tags: |
             paradisi/motion-onvif-events:latest
-            paradisi/motion-onvif-events:${{ github.ref }}
+            paradisi/motion-onvif-events:${{ steps.get-version.outputs.version }}
