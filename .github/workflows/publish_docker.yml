@@ -24,10 +24,10 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: Push to Docker Hub
         uses: docker/build-push-action@v2
-          with:
-            context: .
-            platforms: ${{ steps.qemu.outputs.platforms }}
-            push: true
-            tags: |
-              paradisi/motion-onvif-events:latest
-              paradisi/motion-onvif-events:${{ github.ref }}
+        with:
+          context: .
+          platforms: ${{ steps.qemu.outputs.platforms }}
+          push: true
+          tags: |
+            paradisi/motion-onvif-events:latest
+            paradisi/motion-onvif-events:${{ github.ref }}
