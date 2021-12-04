@@ -53,9 +53,9 @@ function main() {
   parser.addArgument(['-o', '--port'], {
     help: 'port for the ONVIF camera',
   });
-  parser.addArgument(['-t', '--timeout'], {
+  parser.addArgument(['-d', '--delay'], {
     help:
-      'timeout (in ms) between no motion in the Camera and trigger the end of event to Motion',
+      'delay (in ms) between no motion in the Camera and trigger the end of event to Motion',
     defaultValue: 10000,
   });
   const args = parser.parseArgs();

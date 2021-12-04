@@ -13,6 +13,12 @@ This tool connects to an ONVIF camera and subscribes to these messages. When the
 
 Recording triggered using Motion`s Web Control action url. You need to enable [webcontrol options](https://motion-project.github.io/motion_config.html#OptDetail_Webcontrol) in Motion config.
 
+Add to motion.conf:
+```
+webcontrol_parms 2
+webcontrol_localhost off
+```
+
 ## Install
 
 ```bash
@@ -24,7 +30,7 @@ npm install -g motion-onvif-events
 ```bash
 motion-onvif-events --help
 usage: motion-onvif-events [-h] -m MOTION_BASE_URL -i MOTION_CAMERA_ID -c HOSTNAME
-                         [-u USERNAME] [-p PASSWORD] [-o PORT]
+                         [-u USERNAME] [-p PASSWORD] [-o PORT] [-d DELAY]
 
 
 ONVIF motion detection events bridge to Motion
@@ -44,6 +50,9 @@ Optional arguments:
                         password for the ONVIF camera
   -o PORT, --port PORT
                         port for the ONVIF camera
+  -d DELAY, --delay DELAY
+                        delay (in ms) between no motion in the Camera and
+                        trigger the end of event to Motion
 ```
 
 **Example**
@@ -56,8 +65,9 @@ Optional arguments:
       --username supersecretusername \
       --password dontshareme
       --port 8899
-      --timeout 5000
+      --delay 10000
 ```
+
 ```
 [1/13/2021, 11:06:40 AM] Camera: Start event listener
 [1/13/2021, 11:07:28 AM] Camera: Motion detected: true
@@ -70,10 +80,30 @@ Optional arguments:
 
 ## Docker
 
-Environment variables
+Environment variables:
 * `MOTION_BASE_URL` - Base URL for the Motion instance (with trailing slash)
 * `MOTION_CAMERA_ID` - The ID of the camera in Motion
 * `HOSTNAME` - hostname/IP of the ONVIF camera
 * `USERNAME` - username for the ONVIF camera
 * `PASSWORD` - password for the ONVIF camera
 * `PORT` - port for the ONVIF camera
+* `DELAY` - delay (in ms) between no motion in the Camera and trigger the end of event to Motion
+
+**docker-compose.yml**
+
+```
+version: "2"
+services:
+  motion-onvif-events:
+    image: paradisi/motion-onvif-events
+    restart: unless-stopped
+    environment:
+      TZ: Europe/Moscow
+      MOTION_BASE_URL: http://my-motion-instance.com:7999/
+      MOTION_CAMERA_ID: 1
+      HOSTNAME: 192.168.1.55
+      USERNAME: supersecretusername
+      PASSWORD: dontshareme
+      PORT: 8899
+      DELAY: 10000
+```
